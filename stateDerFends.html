@@ -1,0 +1,91 @@
+<html>
+ <head>
+  <title>ToDo app</title>
+ </head>
+
+<body style="background-color:beige;">
+  <h1 style="text-align: center;">TO-DO APPLICATION</h1>
+  <div style="align-content: center; display: flex; justify-content:center;">
+  
+   <div>
+    <input style="height: 30px;" type="text" placeholder="enter your todo here....."></input>
+    <button style="background-color: blue; color: white; padding: 5px 10px; border-radius: 5px; border: none; cursor: pointer;"; onclick="addtodo()">addtodo</button>
+    <button style="background-color: blue; color: white; padding: 5px 10px; border-radius: 5px; border: none; cursor: pointer;"; onclick="deleteFTodo()">deleteFirstTodo</button>
+    <button style="background-color: blue; color: white; padding: 5px 10px; border-radius: 5px; border: none; cursor: pointer;"; onclick="deleteLTodo()">deleteLastTodo</button>
+    <div id="todos"></div>
+  </div>
+  </div>
+  
+  
+  <script>
+    let todos=[];
+    function addtodo()
+    {
+      todos.push({
+        title: document.querySelector("input").value
+      });
+      render();
+    }
+
+
+    function deleteFTodo()
+    {
+      todos.splice(0,1);
+      render();
+    }
+    function deleteLTodo()
+    {
+      todos.splice(todos.length-1,1);
+      render();
+    }
+    function diva()
+    {
+      const div1=document.createElement("div");
+      document.querySelector("#todos").innerHTML="";  
+      for(let i=0;i<todos.length;i++)
+      {
+        const todo=todos[i];
+
+        const div=document.createElement("div");
+        const span=document.createElement("span");
+        const button=document.createElement("button");
+        span.innerHTML=todo.title;
+        button.innerHTML="delete";
+        button.style.backgroundColor="blue";
+        button.style.color="aliceblue";
+        button.style.cssText = "background-color: blue; color: white; padding: 5px 10px; border-radius: 5px; border: none; cursor: pointer;";
+        div.style.cssText = "border: 2px solid #ccc; padding: 10px; margin: 10px 0; background-color: #f9f9f9; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); border-radius: 5px; display: flex; justify-content: space-between; align-items: center;";
+        
+        
+
+        div.appendChild(span);
+        div.appendChild(button);
+        
+        div1.appendChild(div);
+        // button.onclick = (function(index) {
+        //   return function() {
+        //     todos.splice(index, 1); // Remove the todo from the array
+        //     render(); // Re-render the list
+        //   };
+        // })(i);
+        button.setAttribute("onclick","deletetodo("+i+")");  //told by harkirat, adding this function is the assignment given by harkirat
+      
+      }
+      return div1;
+
+    }
+    function deletetodo(index)
+    {
+      todos.splice(index,1);
+      render();
+    }
+    function render()
+    {
+      const divas=diva();
+      
+      document.querySelector("#todos").appendChild(divas);
+        
+    }
+  </script>
+</body>
+</html>
